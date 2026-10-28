@@ -7,7 +7,7 @@ logsource:
 detection:
   selection:
     event.dataset: web
-    user_agent.original|contains:      # какие программы-сканеры вы видели в user_agent в П1?
+    user_agent.original|contains:      # какие программы-сканеры обращались к порталу? (поле user_agent.original)
       - ___
       - ___
   condition: selection

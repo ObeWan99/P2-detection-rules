@@ -7,7 +7,7 @@ logsource:
 detection:
   selection:
     event.action: process_start
-    process.name:      # какие сетевые утилиты запускались на серверах в П1? (поле process.name)
+    process.name:      # какие сетевые утилиты запускались на серверах? (поле process.name)
       - ___
       - ___
       - ___
