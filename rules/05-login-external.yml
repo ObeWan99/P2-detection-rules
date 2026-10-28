@@ -1,0 +1,14 @@
+# Правило 5. После оценки посмотрите на точность этого правила — и подумайте почему.
+# Замените все ___ и сохраните файл. Образец — 00-example-web-attack.yml
+
+title: Успешный вход с внешнего адреса
+logsource:
+  category: authentication
+detection:
+  selection:
+    event.action: ___      # успешный вход
+  filter:
+    source.ip|cidr:
+      - '10.0.0.0/8'      # внутренняя сеть
+  condition: selection and not filter
+level: medium

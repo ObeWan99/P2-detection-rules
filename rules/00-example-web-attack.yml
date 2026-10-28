@@ -1,0 +1,14 @@
+# Образец. Читается так: событие из веб-журнала И адрес запроса содержит одно из трёх.
+
+title: Попытка веб-атаки (SQL-инъекция, обход каталогов, XSS)
+logsource:
+  category: webserver
+detection:
+  selection:
+    event.dataset: web
+    url.original|contains:
+      - "' OR 1=1"
+      - '../'
+      - "<script"
+  condition: selection
+level: high

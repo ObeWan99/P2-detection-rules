@@ -1,0 +1,19 @@
+# Инструменты практики 2. Подключаются к стенду практики 1 — Elasticsearch и Kibana из папки ../P1-normalization.
+# Обе папки должны лежать рядом, стенд П1 — запущен.
+#   docker compose run --rm p2 rules   перевести правила из rules/ и создать их в Kibana
+#   docker compose run --rm p2 score   оценить правила
+name: p2-rules
+
+services:
+  p2:
+    build: tools
+    image: p2-tools:1
+    env_file: ../P1-normalization/.env   # пароль elastic — тот же, что в П1
+    volumes:
+      - ./rules:/rules                   # ваши правила
+    networks: [p1]
+
+networks:
+  p1:
+    name: p1-siem_default                # сеть стенда П1
+    external: true

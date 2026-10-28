@@ -1,0 +1,14 @@
+# Правило 1. Запросы к порталу от программ-сканеров, а не от браузера.
+# Замените все ___ и сохраните файл. Образец — 00-example-web-attack.yml
+
+title: Сканер уязвимостей в User-Agent
+logsource:
+  category: webserver
+detection:
+  selection:
+    event.dataset: web
+    user_agent.original|contains:      # какие программы-сканеры вы видели в user_agent в П1?
+      - ___
+      - ___
+  condition: selection
+level: medium

@@ -1,0 +1,15 @@
+# Правило 3. Сетевая утилита на сервере — возможная «обратная оболочка».
+# Замените все ___ и сохраните файл. Образец — 00-example-web-attack.yml
+
+title: Запуск сетевой утилиты на сервере
+logsource:
+  category: process_creation
+detection:
+  selection:
+    event.action: process_start
+    process.name:      # какие сетевые утилиты запускались на серверах в П1? (поле process.name)
+      - ___
+      - ___
+      - ___
+  condition: selection
+level: high

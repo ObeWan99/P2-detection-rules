@@ -1,0 +1,14 @@
+# Правило 4. Задача cron скачивает что-то по сети.
+# Замените все ___ и сохраните файл. Образец — 00-example-web-attack.yml
+
+title: Задача по расписанию обращается в интернет
+logsource:
+  category: system
+detection:
+  selection:
+    event.action: ___      # событие «выполнена задача по расписанию»
+    process.command_line|contains:      # какой программой задача обращалась в интернет? (поле process.command_line)
+      - ___
+      - wget      # в журнале не встречалась; добавлена заранее — другая частая программа скачивания
+  condition: selection
+level: high

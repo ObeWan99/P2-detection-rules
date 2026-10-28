@@ -1,0 +1,14 @@
+# Правило 2. selection — что ищем, filter — что исключаем.
+# Замените все ___ и сохраните файл. Образец — 00-example-web-attack.yml
+
+title: SSH-подключение к серверу с внешнего адреса
+logsource:
+  category: system
+detection:
+  selection:
+    event.action: ___      # событие «SSH-подключение» (поле event.action в журнале серверов)
+    source.ip|exists: true      # адрес «откуда» заполнен
+  filter:
+    source.ip|cidr: '___'      # диапазон внутренней сети — все адреса 10.x.x.x
+  condition: selection and not filter
+level: high
