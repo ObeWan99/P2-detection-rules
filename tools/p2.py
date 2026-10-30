@@ -16,10 +16,12 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+import yaml
+
 HERE = Path(__file__).resolve().parent
 RULES = Path("/rules")
-ES = "http://elasticsearch:9200"
-KB = "http://kibana:5601"
+ES = "http://127.0.0.1:9200"
+KB = "http://127.0.0.1:5601"
 AUTH = "Basic " + base64.b64encode(f"elastic:{os.environ['ELASTIC_PASSWORD']}".encode()).decode()
 
 # Стенд локальный: системный прокси (если есть) не используем
@@ -64,6 +66,14 @@ def find_rules():
     return kb("GET", "/api/detection_engine/rules/_find?per_page=1000&filter=alert.attributes.tags:sigma").get("data", [])
 
 
+def unfilled(f):
+    """Остался ли ___ в самом правиле. Комментарии не считаются: в шапке заготовки написано «Замените все ___»."""
+    try:
+        return "___" in json.dumps(yaml.safe_load(f.read_text(encoding="utf-8")), ensure_ascii=False)
+    except yaml.YAMLError:
+        return False  # ошибку в YAML покажет перевод правила
+
+
 def rules():
     old = [r["id"] for r in find_rules()]
     if old:
@@ -71,7 +81,7 @@ def rules():
     print("Правила из папки rules:")
     done = 0
     for f in sorted(RULES.glob("*.yml")):
-        if "___" in f.read_text(encoding="utf-8"):
+        if unfilled(f):
             print(f"  -  {f.name}: заготовка не заполнена (есть ___) — пропущено")
             continue
         try:

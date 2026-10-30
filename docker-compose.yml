@@ -7,13 +7,8 @@ name: p2-rules
 services:
   p2:
     build: tools
-    image: p2-tools:1
+    image: p2-tools:2
     env_file: ../P1-normalization/.env   # пароль elastic — тот же, что в П1
     volumes:
       - ./rules:/rules                   # ваши правила
-    networks: [p1]
-
-networks:
-  p1:
-    name: p1-siem_default                # сеть стенда П1
-    external: true
+    network_mode: host                   # как у стенда П1: Elasticsearch и Kibana — на 127.0.0.1
